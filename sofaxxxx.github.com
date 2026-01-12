@@ -4,5 +4,7 @@
     <title>Мой блог/<title>
     <link type=“text/css” rel=“stylesheet” href=“style.css” />
 </head>
-<body><h2> 12.01 , 2026</h2>
-  _github-pages-challenge-sofaxxxx.sofaxxxx
+<body>
+<h2> 12.01 , 2026</h2>
+<body> 
+_github-pages-challenge-sofaxxxx.sofaxxxx
