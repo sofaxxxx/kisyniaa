@@ -20,3 +20,88 @@
     </p>
 </body>
 </htm|>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Шифр Цезаря</title>
+</head>
+<body>
+  <script>
+    document.write(new Date().toLocaleDateString('ru-RU', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      weekday: 'long'
+    }));
+  </script>
+
+  <h2>Решение шифров Цезаря</h2>
+  <pre id="output"></pre>
+
+  <script>
+    // Функция шифрования/дешифрования Цезаря для русского алфавита (32 буквы, без ё)
+    const ALPHABET = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ';
+    
+    function caesar(text, shift) {
+      return text
+        .toUpperCase()
+        .split('')
+        .map(char => {
+          const idx = ALPHABET.indexOf(char);
+          if (idx === -1) return char;
+          const newIndex = (idx + shift + 32) % 32;
+          return ALPHABET[newIndex];
+        })
+        .join('');
+    }
+
+    // Задача 1: Найти ключ по паре открытый текст – шифротекст
+    function findKey(plain, cipher) {
+      plain = plain.toUpperCase();
+      cipher = cipher.toUpperCase();
+      for (let i = 0; i < plain.length; i++) {
+        const p = ALPHABET.indexOf(plain[i]);
+        const c = ALPHABET.indexOf(cipher[i]);
+        if (p !== -1 && c !== -1) {
+          return (c - p + 32) % 32;
+        }
+      }
+      return null;
+    }
+
+    // Задача 2: Перебор всех ключей (0 < k < 32)
+    function bruteForce(cipher) {
+      const results = [];
+      for (let k = 1; k < 32; k++) {
+        results.push(`k=${k}: ${caesar(cipher, -k)}`);
+      }
+      return results;
+    }
+
+    // === Решения ===
+    let output = '';
+
+    // 1а
+    const key1a = findKey('АПЕЛЬСИН', 'САЦЬНВЩЮ');
+    output += `1а. Ключ: ${key1a}\n`;
+
+    // 1б
+    const key1b = findKey('АБРИКОС', 'ЫЬЛГЕЙМ');
+    output += `1б. Ключ: ${key1b}\n\n`;
+
+    // 2а
+    output += '2а. ФХНЗКЧ:\n' + bruteForce('ФХНЗКЧ').join('\n') + '\n\n';
+
+    // 2б
+    output += '2б. ЦЩЕБФ:\n' + bruteForce('ЦЩЕБФ').join('\n') + '\n\n';
+
+    // 3. Зашифровать фамилию "БОГАЧЕВА" с ключом 10
+    const encryptedName = caesar('БОГАЧЕВА', 10);
+    output += `3. Фамилия "БОГАЧЕВА" с ключом 10: ${encryptedName}\n`;
+
+    // Вывод в HTML
+    document.getElementById('output').textContent = output;
+  </script>
+</body>
+</html>
