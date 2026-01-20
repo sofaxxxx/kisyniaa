@@ -40,7 +40,7 @@ blockquote.q {
 }
 	@font-face {
 	font-family: “Pudelinka”;
-	src: url(”Fonts/pudelinka.ttf” ) format('truetype’);
+	src: url(”Fonts/pudelinka.ttf” ) format("truetype");
 	font-weight: normal;
 	font-style: normal;
 }
